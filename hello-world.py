@@ -45,12 +45,10 @@ plt.show()
 
 
 #multivariate plots to better understand the interaction between the variables
-
 # scatter plot matrix
 scatter_matrix(dataset)
 plt.show()
 '''
-
 # Split-out validation dataset
 array = dataset.values
 X = array[:,0:4]
@@ -72,6 +70,7 @@ models.append(('KNN', KNeighborsClassifier()))
 models.append(('CART', DecisionTreeClassifier()))
 models.append(('NB', GaussianNB()))
 models.append(('SVM', SVC()))
+
 # evaluate each model in turn
 results = []
 names = []
@@ -82,5 +81,13 @@ for name, model in models:
 	names.append(name)
 	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
 	print(msg)
-    
-print("--"*44)
+
+# Compare Algorithms
+fig = plt.figure() # creates a figure
+fig.suptitle('Algorithm Comparison')
+ax = fig.add_subplot(111)
+plt.boxplot(results) # plots inisde the figure
+ax.set_xticklabels(names) # generates value for x-axis 
+plt.show() 
+   
+print("--"*42)
