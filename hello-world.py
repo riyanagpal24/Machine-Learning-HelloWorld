@@ -23,7 +23,7 @@ from sklearn.svm import SVC
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
 names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
 dataset = pandas.read_csv(url, names=names)
-'''
+
 print(dataset.shape)
 print(dataset.head(20))
 # descriptions
@@ -48,7 +48,7 @@ plt.show()
 # scatter plot matrix
 scatter_matrix(dataset)
 plt.show()
-'''
+
 # Split-out validation dataset
 array = dataset.values
 X = array[:,0:4]
@@ -89,5 +89,21 @@ ax = fig.add_subplot(111)
 plt.boxplot(results) # plots inisde the figure
 ax.set_xticklabels(names) # generates value for x-axis 
 plt.show() 
+
+# Make predictions on validation dataset
+knn = KNeighborsClassifier()
+knn.fit(X_train, Y_train)
+predictions = knn.predict(X_validation)
+
+'''
+    accuracy score 
+    returns the accuracy with which predictions match with Y_validation
+'''
+print(accuracy_score(Y_validation, predictions)) 
+
+# Compute confusion matrix to evaluate the accuracy of a classification
+print(confusion_matrix(Y_validation, predictions))
+
+# Build a text report showing the main classification metrics
+print(classification_report(Y_validation, predictions))
    
-print("--"*42)
